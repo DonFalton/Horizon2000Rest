@@ -20,3 +20,6 @@ Once the database is ready they can start creating repository classes for each t
 
 
 Antoine
+
+1. Class names of tables must be named with a Dbo at the end. Example: UserDbo but within the database, the name must be User
+2. After database is created, create exception class for Horizon application
