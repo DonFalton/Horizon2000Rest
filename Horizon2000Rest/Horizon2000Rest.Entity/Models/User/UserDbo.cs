@@ -16,5 +16,7 @@ namespace Horizon2000Rest.Entity.Models.User
         public string Email { get; set; }
         public DateTime DateRegistered { get; set; }
         public bool Active { get; set; }
+
+        //public List <RoleNum> Roles { get; set; }
     }
 }
