@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Horizon2000Rest.Core.Interfaces;
-using Horizon2000Rest.Core.Models.Product;
-using Horizon2000Rest.Core.Workers;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Horizon2000Rest.Controllers
 {

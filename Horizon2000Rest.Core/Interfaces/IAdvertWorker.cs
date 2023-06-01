@@ -1,5 +1,4 @@
-﻿using Horizon2000Rest.Entity.Models;
-using Horizon2000Rest.Core.Models.Advert;
+﻿using Horizon2000Rest.Core.Models.Advert;
 
 namespace Horizon2000Rest.Core.Interfaces
 {

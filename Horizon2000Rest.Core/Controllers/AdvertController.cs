@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Horizon2000Rest.Core.Models.Advert;
 using Horizon2000Rest.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
