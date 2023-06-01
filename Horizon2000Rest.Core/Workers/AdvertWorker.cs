@@ -24,9 +24,10 @@ namespace Horizon2000Rest.Core.Workers
         }
 
         /// <inheritdoc/>
-        public AdvertDbo GetAdvert(int id)
+        public GetAdvertDto GetAdvert(int id)
         {
-            return _advertRepository.Get(id);
+            var advertDbo = _advertRepository.Get(id);
+            return _mapper.Map<GetAdvertDto>(advertDbo);
         }
 
         /// <inheritdoc/>

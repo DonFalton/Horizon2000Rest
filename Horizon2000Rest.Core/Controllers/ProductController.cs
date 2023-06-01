@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Horizon2000Rest.Core.Interfaces;
 using Horizon2000Rest.Core.Models.Product;
+using Horizon2000Rest.Core.Workers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -35,14 +36,12 @@ namespace Horizon2000Rest.Controllers
         [HttpGet("{id}")]
         public IActionResult GetProduct(int id)
         {
-            var productDbo = _productWorker.GetProduct(id);
-            if (productDbo == null)
             {
-                return NotFound();
+                var productDto = _productWorker.GetProduct(id);
+                return productDto is { }
+                    ? Ok(productDto)
+                    : BadRequest("Product not found");
             }
-
-            var productDto = _mapper.Map<ProductDto>(productDbo);
-            return Ok(productDto);
         }
     }
 }

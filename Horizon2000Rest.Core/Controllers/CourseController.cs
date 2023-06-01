@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Horizon2000Rest.Core.Interfaces;
 using Horizon2000Rest.Core.Models.Course;
+using Horizon2000Rest.Entity.Data;
+using Horizon2000Rest.Entity.Interfaces;
 using Horizon2000Rest.Entity.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,20 +13,22 @@ namespace Horizon2000Rest.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseController : Controller
+    public class CourseWorker : ICourseWorker
     {
+        private readonly DataContext _dataContext;
+        private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
-        private readonly ICourseWorker _courseWorker;
 
         /// <summary>
         /// Initializes a new instance of the CourseController class.
         /// </summary>
         /// <param name="mapper">The IMapper instance for object mapping.</param>
         /// <param name="courseWorker">The ICourseWorker instance for course operations.</param>
-        public CourseController(IMapper mapper, ICourseWorker courseWorker)
+        public CourseWorker(DataContext dataContext, ICourseRepository courseRepository, IMapper mapper)
         {
-            _mapper = mapper;
-            _courseWorker = courseWorker;
+            _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
+            _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         /// <summary>
@@ -33,16 +37,10 @@ namespace Horizon2000Rest.Controllers
         /// <param name="id">The ID of the course to retrieve.</param>
         /// <returns>The ActionResult containing the course details if found, or NotFound if not found.</returns>
         [HttpGet("{id}")]
-        public IActionResult GetCourse(int id)
+        public GetCourseDto GetCourse(int id)
         {
-            var courseDbo = _courseWorker.GetCourse(id);
-            if (courseDbo == null)
-            {
-                return NotFound();
-            }
-
-            var courseDto = _mapper.Map<GetCourseDto>(courseDbo);
-            return Ok(courseDto);
+            var courseDbo = _courseRepository.Get(id);
+            return _mapper.Map<GetCourseDto>(courseDbo);
         }
 
         /// <summary>
@@ -51,24 +49,30 @@ namespace Horizon2000Rest.Controllers
         /// <param name="courseDto">The CreateCourseDto containing the course data to add.</param>
         /// <returns>The ActionResult containing the created course details if successful, or an error response if unsuccessful.</returns>
         [HttpPost]
-        public IActionResult AddCourse([FromBody] CreateCourseDto courseDto)
+        public int AddCourse(CreateCourseDto courseDto)
         {
             if (courseDto == null)
-            {
-                return BadRequest("Invalid course data");
-            }
+                throw new ArgumentNullException(nameof(courseDto));
 
-            try
-            {
-                var courseDbo = _mapper.Map<CourseDbo>(courseDto);
-                var courseId = _courseWorker.AddCourse(courseDbo);
+            var courseDbo = _mapper.Map<CourseDbo>(courseDto);
 
-                return CreatedAtAction(nameof(GetCourse), new { id = courseId }, courseDto);
-            }
-            catch (Exception ex)
+            using (var transaction = _dataContext.Database.BeginTransaction())
             {
-                return StatusCode(500, $"Error adding course: {ex.Message}");
+                try
+                {
+                    _courseRepository.Add(courseDbo);
+                    _dataContext.SaveChanges();
+                    transaction.Commit();
+
+                    return courseDbo.ID;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Error adding course", ex);
+                }
             }
         }
+
     }
 }

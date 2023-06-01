@@ -33,7 +33,7 @@ This project contains all data-related functionality, including the entities and
 
 - Package references to `Microsoft.EntityFrameworkCore`, `Microsoft.EntityFrameworkCore.Design`, `Microsoft.EntityFrameworkCore.SqlServer`, and `Microsoft.EntityFrameworkCore.Tools`.
 - A `Migrations` folder (this is where Entity Framework migrations will be stored).
-- A series of classes in the `Models2` folder that serve as templates for the tables, rows, data types, and relationships to be created in the database.
+- A series of classes in the `Models` folder that serve as templates for the tables, rows, data types, and relationships to be created in the database.
 
 ## Database
 
