@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using Horizon2000Rest.Core.Models.Advert;
 using Horizon2000Rest.Core.Interfaces;
-using Horizon2000Rest.Entity.Models;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace Horizon2000Rest.Controllers
 {
@@ -14,7 +11,6 @@ namespace Horizon2000Rest.Controllers
     [ApiController]
     public class AdvertController : ControllerBase
     {
-
         private readonly IMapper _mapper;
         private readonly IAdvertWorker _advertWorker;
 
@@ -33,18 +29,14 @@ namespace Horizon2000Rest.Controllers
         /// Retrieves an advert by ID.
         /// </summary>
         /// <param name="id">The ID of the advert to retrieve.</param>
-        /// <returns>The ActionResult containing the advert details if found, or NotFound if not found.</returns>
+        /// <returns>The ActionResult containing the advert details if found, or BadRequest with an appropriate message if not found.</returns>
         [HttpGet("{id}")]
         public IActionResult GetAdvert(int id)
         {
-            var advertDbo = _advertWorker.GetAdvert(id);
-            if (advertDbo == null)
-            {
-                return NotFound();
-            }
-
-            var advertDto = _mapper.Map<GetAdvertDto>(advertDbo);
-            return Ok(advertDto);
+            var advertDto = _advertWorker.GetAdvert(id);
+            return advertDto is { } 
+                ? Ok(advertDto)
+                : BadRequest("Advert not found");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Horizon2000Rest.Entity.Models;
-using Horizon2000Rest.Core.Models.Advert;
+﻿using Horizon2000Rest.Core.Models.Advert;
 
 namespace Horizon2000Rest.Core.Interfaces
 {
@@ -13,7 +12,7 @@ namespace Horizon2000Rest.Core.Interfaces
         /// </summary>
         /// <param name="id">The ID of the advert to retrieve.</param>
         /// <returns>The AdvertDbo object if found, or null if not found.</returns>
-        AdvertDbo GetAdvert(int id);
+        GetAdvertDto GetAdvert(int id);
 
         /// <summary>
         /// Adds a new advert.
