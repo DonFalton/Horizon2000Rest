@@ -61,9 +61,7 @@ namespace Horizon2000Rest.Core.Workers
 
         public UserLoginDto UserLogin(string username, string password)
         {
-            // Implementa la lógica para validar las credenciales del usuario y generar el token JWT
-            // Utiliza el método GenerateToken de la clase JwtHelper
-            // Retorna un objeto UserLoginDto con el estado y el token generado
+     
 
             string token = JwtHelper.GenerateToken(username);
 
@@ -76,9 +74,7 @@ namespace Horizon2000Rest.Core.Workers
 
         public UserLoginDto UserValidation(string username, string token)
         {
-            // Implementa la lógica para validar el token JWT y verificar si coincide con el usuario proporcionado
-            // Utiliza el método ValidateToken de la clase JwtHelper
-            // Retorna un objeto UserLoginDto con el estado de la validación
+            
 
             bool isValid = JwtHelper.ValidateToken(token) == username;
 
@@ -102,6 +98,6 @@ namespace Horizon2000Rest.Core.Workers
 
         #endregion
 
-        // ...
+       
     }
 }

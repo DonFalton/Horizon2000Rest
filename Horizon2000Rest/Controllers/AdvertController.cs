@@ -35,7 +35,7 @@ namespace Horizon2000Rest.Controllers
         public IActionResult GetAdvert(int id)
         {
             var advertDto = _advertWorker.GetAdvert(id);
-            return advertDto is { } 
+            return advertDto is { }
                 ? Ok(advertDto)
                 : BadRequest("Advert not found");
         }
