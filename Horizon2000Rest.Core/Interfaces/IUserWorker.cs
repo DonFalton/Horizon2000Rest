@@ -20,5 +20,17 @@ namespace Horizon2000Rest.Core.Interfaces
         /// </summary>
         /// <returns>A list of user entities.</returns>
         List<UserDbo> GetAllUsers();
+
+        /// <summary>
+        /// Adds a new user.
+        /// </summary>
+        /// <param name="userDbo">The user entity.</param>
+        void AddUser(UserDbo userDbo);
+
+        /// <summary>
+        /// Updates an existing user.
+        /// </summary>
+        /// <param name="userDbo">The user entity.</param>
+        void UpdateUser(UserDbo userDbo);
     }
 }

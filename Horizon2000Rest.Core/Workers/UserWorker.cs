@@ -1,6 +1,8 @@
 ﻿using Horizon2000Rest.Entity.Interfaces;
 using Horizon2000Rest.Entity.Models;
 using Horizon2000Rest.Core.Interfaces;
+using Horizon2000Rest.Core.Models.User;
+using Horizon2000Rest.Core.Authentication;
 
 namespace Horizon2000Rest.Core.Workers
 {
@@ -34,5 +36,72 @@ namespace Horizon2000Rest.Core.Workers
         {
             return _userRepository.GetAll();
         }
+
+        /// <summary>
+        /// Adds a new user.
+        /// </summary>
+        /// <param name="userDbo">The user entity.</param>
+        public void AddUser(UserDbo userDbo)
+        {
+            _userRepository.Add(userDbo);
+            _userRepository.Save();
+        }
+
+        /// <summary>
+        /// Updates an existing user.
+        /// </summary>
+        /// <param name="userDbo">The user entity.</param>
+        public void UpdateUser(UserDbo userDbo)
+        {
+            _userRepository.Update(userDbo);
+            _userRepository.Save();
+        }
+
+        #region JWT
+
+        public UserLoginDto UserLogin(string username, string password)
+        {
+            // Implementa la lógica para validar las credenciales del usuario y generar el token JWT
+            // Utiliza el método GenerateToken de la clase JwtHelper
+            // Retorna un objeto UserLoginDto con el estado y el token generado
+
+            string token = JwtHelper.GenerateToken(username);
+
+            return new UserLoginDto
+            {
+                Status = "Success",
+                Message = token
+            };
+        }
+
+        public UserLoginDto UserValidation(string username, string token)
+        {
+            // Implementa la lógica para validar el token JWT y verificar si coincide con el usuario proporcionado
+            // Utiliza el método ValidateToken de la clase JwtHelper
+            // Retorna un objeto UserLoginDto con el estado de la validación
+
+            bool isValid = JwtHelper.ValidateToken(token) == username;
+
+            if (isValid)
+            {
+                return new UserLoginDto
+                {
+                    Status = "Success",
+                    Message = "OK"
+                };
+            }
+            else
+            {
+                return new UserLoginDto
+                {
+                    Status = "Invalid",
+                    Message = "Invalid Token"
+                };
+            }
+        }
+
+        #endregion
+
+        // ...
     }
 }

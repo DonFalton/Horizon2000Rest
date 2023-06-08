@@ -59,5 +59,10 @@
         /// Gets or sets the date of birth of the student.
         /// </summary>
         public string DateOfBirth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ID of the student.
+        /// </summary>
+        public int ID { get; set; }
     }
 }

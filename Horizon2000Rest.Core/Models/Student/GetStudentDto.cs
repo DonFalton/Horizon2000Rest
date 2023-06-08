@@ -9,6 +9,6 @@
         /// <summary>
         /// Gets or sets the ID of the student.
         /// </summary>
-        public int ID { get; set; }
+        public string StudentId { get; set; }
     }
 }

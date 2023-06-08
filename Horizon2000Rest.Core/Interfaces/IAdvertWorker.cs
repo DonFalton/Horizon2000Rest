@@ -20,5 +20,7 @@ namespace Horizon2000Rest.Core.Interfaces
         /// <param name="advert">The AddAdvertDto object containing the advert data.</param>
         /// <returns>The ID of the added advert.</returns>
         int AddAdvert(AddAdvertDto advert);
+
+        void DeactivateAdvert(int id);
     }
 }

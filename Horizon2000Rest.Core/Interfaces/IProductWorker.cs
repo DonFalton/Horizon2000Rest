@@ -1,4 +1,5 @@
-﻿using Horizon2000Rest.Entity.Models;
+﻿using Horizon2000Rest.Core.Models.Product;
+using Horizon2000Rest.Entity.Models;
 
 namespace Horizon2000Rest.Core.Interfaces
 {
@@ -13,5 +14,7 @@ namespace Horizon2000Rest.Core.Interfaces
         /// <param name="id">The ID of the product.</param>
         /// <returns>The product entity.</returns>
         ProductDbo GetProduct(int id);
+        ProductDbo AddProduct(AddProductDto productDto);
+        ProductDbo UpdateProduct(UpdateProductDto productDto);
     }
 }

@@ -56,5 +56,18 @@ namespace Horizon2000Rest.Core.Workers
                 }
             }
         }
+
+        public void UpdateCourse(UpdateCourseDto updateCourseDto)
+        {
+            var courseDbo = _courseRepository.Get(updateCourseDto.Id);
+
+            if (courseDbo == null)
+                throw new ArgumentNullException($"Course with id {updateCourseDto.Id} not found");
+
+            courseDbo.ImagePath = updateCourseDto.Image; // Suponiendo que esto es lo que quieres actualizar
+
+            _courseRepository.Update(courseDbo);
+            _dataContext.SaveChanges();
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Horizon2000Rest.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseWorker : ICourseWorker
+    public class CourseController : ControllerBase
     {
         private readonly DataContext _dataContext;
         private readonly ICourseRepository _courseRepository;
@@ -24,7 +24,7 @@ namespace Horizon2000Rest.Controllers
         /// </summary>
         /// <param name="mapper">The IMapper instance for object mapping.</param>
         /// <param name="courseWorker">The ICourseWorker instance for course operations.</param>
-        public CourseWorker(DataContext dataContext, ICourseRepository courseRepository, IMapper mapper)
+        public CourseController(DataContext dataContext, ICourseRepository courseRepository, IMapper mapper)
         {
             _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
             _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
@@ -72,6 +72,26 @@ namespace Horizon2000Rest.Controllers
                     throw new Exception("Error adding course", ex);
                 }
             }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCourse(int id, UpdateCourseDto updateCourseDto)
+        {
+            if (updateCourseDto == null)
+                throw new ArgumentNullException(nameof(updateCourseDto));
+
+            var existingCourseDbo = _courseRepository.Get(id);
+            if (existingCourseDbo == null)
+                return NotFound();
+
+            
+            existingCourseDbo.ImagePath = updateCourseDto.Image;
+
+            
+            _courseRepository.Update(existingCourseDbo);
+            _dataContext.SaveChanges();
+
+            return NoContent();
         }
 
     }

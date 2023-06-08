@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Horizon2000Rest.Core.Models.ProductCategory;
+using Horizon2000Rest.Entity.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Horizon2000Rest.Controllers
@@ -48,6 +49,30 @@ namespace Horizon2000Rest.Controllers
 
             var productCategoryDto = _mapper.Map<ProductCategoryDto>(productCategoryDbo);
             return Ok(productCategoryDto);
+        }
+
+        [HttpPost]
+        public IActionResult AddProductCategory([FromBody] UpdateProductCategoryDto productCategoryDto)
+        {
+            var productCategoryDbo = _mapper.Map<ProductCategoryDbo>(productCategoryDto);
+            _productCategoryWorker.AddProductCategory(productCategoryDbo);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateProductCategory(int id, [FromBody] UpdateProductCategoryDto productCategoryDto)
+        {
+            var existingProductCategory = _productCategoryWorker.GetProductCategory(id);
+            if (existingProductCategory == null)
+            {
+                return NotFound();
+            }
+
+            var productCategoryDbo = _mapper.Map<ProductCategoryDbo>(productCategoryDto);
+            productCategoryDbo.ID = id; // Ensure the ID is set correctly
+
+            _productCategoryWorker.UpdateProductCategory(productCategoryDbo);
+            return Ok();
         }
     }
 

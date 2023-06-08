@@ -41,5 +41,10 @@ namespace Horizon2000Rest.Entity.Interfaces
         /// </summary>
         /// <param name="advert">The UserDbo entity to be added.</param>
         void Add(UserDbo advert);
+
+        /// <summary>
+        /// Saves the changes made to the repository.
+        /// </summary>
+        void Save();
     }
 }

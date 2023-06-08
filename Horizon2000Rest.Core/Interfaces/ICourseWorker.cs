@@ -20,5 +20,7 @@ namespace Horizon2000Rest.Core.Interfaces
         /// <param name="course">The CourseDbo object containing the course data.</param>
         /// <returns>The ID of the added course.</returns>
         int AddCourse(CreateCourseDto courseDto);
+
+        void UpdateCourse(UpdateCourseDto updateCourseDto);
     }
 }

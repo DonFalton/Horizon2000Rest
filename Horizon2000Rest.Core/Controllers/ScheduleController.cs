@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Horizon2000Rest.Core.Interfaces;
 using Horizon2000Rest.Core.Models.Schedule;
+using Horizon2000Rest.Entity.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Horizon2000Rest.Controllers
@@ -50,5 +51,29 @@ namespace Horizon2000Rest.Controllers
             var scheduleDto = _mapper.Map<GetScheduleDto>(scheduleDbo);
             return Ok(scheduleDto);
         }
+        [HttpPost]
+        public IActionResult AddSchedule([FromBody] AddScheduleDto scheduleDto)
+        {
+            var scheduleDbo = _mapper.Map<ScheduleDbo>(scheduleDto);
+            _scheduleWorker.AddSchedule(scheduleDbo);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateSchedule(int id, [FromBody] UpdateScheduleDto scheduleDto)
+        {
+            var existingSchedule = _scheduleWorker.GetSchedule(id);
+            if (existingSchedule == null)
+            {
+                return NotFound();
+            }
+
+            var scheduleDbo = _mapper.Map<ScheduleDbo>(scheduleDto);
+            scheduleDbo.ID = id; // Ensure the ID is set correctly
+
+            _scheduleWorker.UpdateSchedule(scheduleDbo);
+            return Ok();
+        }
+
     }
 }

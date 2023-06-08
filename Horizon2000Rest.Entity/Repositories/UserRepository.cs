@@ -1,6 +1,7 @@
 ﻿using Horizon2000Rest.Entity.Data;
 using Horizon2000Rest.Entity.Interfaces;
 using Horizon2000Rest.Entity.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Horizon2000REST.Entity.Repositories
 {
@@ -87,6 +88,11 @@ namespace Horizon2000REST.Entity.Repositories
         public void Add(UserDbo user)
         {
             _dataContext.Users.Add(user);
+        }
+
+        public void Save()
+        {
+            _dataContext.SaveChanges();
         }
     }
 }

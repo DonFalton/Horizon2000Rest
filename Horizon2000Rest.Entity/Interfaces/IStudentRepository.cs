@@ -41,5 +41,10 @@ namespace Horizon2000Rest.Entity.Interfaces
         /// </summary>
         /// <param name="advert">The StudentDbo entity to be added.</param>
         void Add(StudentDbo advert);
+
+        /// <summary>
+        /// Saves the changes made to the repository.
+        /// </summary>
+        void Save();
     }
 }

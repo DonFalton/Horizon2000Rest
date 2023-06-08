@@ -62,6 +62,20 @@ namespace Horizon2000Rest.Core.Workers
                 }
             }
         }
+
+        public void DeactivateAdvert(int id)
+        {
+            var advertDbo = _advertRepository.Get(id);
+
+            if (advertDbo == null)
+            {
+                throw new ArgumentNullException($"Advert with id {id} not found");
+            }
+
+            advertDbo.IsActive = false;
+            _advertRepository.Update(advertDbo);
+            _dataContext.SaveChanges();
+        }
     }
 }
 

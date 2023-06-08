@@ -37,5 +37,17 @@ namespace Horizon2000Rest.Core.Workers
         {
             return _scheduleRepository.Get(id);
         }
+
+        public void AddSchedule(ScheduleDbo schedule)
+        {
+            _scheduleRepository.Add(schedule);
+            _dataContext.SaveChanges();
+        }
+
+        public void UpdateSchedule(ScheduleDbo schedule)
+        {
+            _scheduleRepository.Update(schedule);
+            _dataContext.SaveChanges();
+        }
     }
 }

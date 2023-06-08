@@ -24,5 +24,15 @@ namespace Horizon2000Rest.Core.Workers
         {
             return _parentCourseRepository.Get(id);
         }
+
+        public void AddParentCourse(ParentCourseDbo parentCourse)
+        {
+            _parentCourseRepository.Add(parentCourse);
+        }
+
+        public void UpdateParentCourse(ParentCourseDbo parentCourse)
+        {
+            _parentCourseRepository.Update(parentCourse);
+        }
     }
 }

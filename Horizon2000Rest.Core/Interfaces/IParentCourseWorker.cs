@@ -13,5 +13,17 @@ namespace Horizon2000Rest.Core.Interfaces
         /// <param name="id">The ID of the parent course to retrieve.</param>
         /// <returns>The ParentCourseDbo object if found, or null if not found.</returns>
         ParentCourseDbo GetParentCourse(int id);
+
+        /// <summary>
+        /// Adds a new parent course.
+        /// </summary>
+        /// <param name="parentCourse">The ParentCourseDbo object to add.</param>
+        void AddParentCourse(ParentCourseDbo parentCourse);
+
+        /// <summary>
+        /// Updates an existing parent course.
+        /// </summary>
+        /// <param name="parentCourse">The ParentCourseDbo object to update.</param>
+        void UpdateParentCourse(ParentCourseDbo parentCourse);
     }
 }

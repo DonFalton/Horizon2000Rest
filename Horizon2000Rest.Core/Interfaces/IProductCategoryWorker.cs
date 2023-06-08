@@ -18,4 +18,6 @@ public interface IProductCategoryWorker
     /// <param name="id">The ID of the product category.</param>
     /// <returns>The product category.</returns>
     ProductCategoryDbo GetProductCategory(int id);
+    void AddProductCategory(ProductCategoryDbo productCategory);
+    void UpdateProductCategory(ProductCategoryDbo productCategory);
 }

@@ -50,5 +50,37 @@ namespace Horizon2000Rest.Controllers
             var studentDto = _mapper.Map<GetStudentDto>(studentDbo);
             return Ok(studentDto);
         }
+
+        [HttpPost]
+        public IActionResult AddStudent([FromBody] StudentDto studentDto)
+        {
+            var studentDbo = _studentWorker.AddStudent(studentDto);
+            if (studentDbo == null)
+            {
+                return BadRequest();
+            }
+
+            var newStudentDto = _mapper.Map<GetStudentDto>(studentDbo);
+            return CreatedAtAction(nameof(GetStudent), new { id = newStudentDto.StudentId}, newStudentDto);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateStudent(string id, [FromBody] StudentDto studentDto)
+        {
+            if (id != studentDto.IdCard)
+            {
+                return BadRequest();
+            }
+
+            var studentDbo = _studentWorker.UpdateStudent(studentDto);
+            if (studentDbo == null)
+            {
+                return NotFound();
+            }
+
+            var updatedStudentDto = _mapper.Map<GetStudentDto>(studentDbo);
+            return Ok(updatedStudentDto);
+        }
+
     }
 }

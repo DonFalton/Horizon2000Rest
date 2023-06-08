@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Horizon2000Rest.Core.Interfaces;
+using Horizon2000Rest.Core.Models.Advert;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Horizon2000Rest.Controllers
@@ -37,6 +38,25 @@ namespace Horizon2000Rest.Controllers
             return advertDto is { } 
                 ? Ok(advertDto)
                 : BadRequest("Advert not found");
+        }
+
+        [HttpPost]
+        public IActionResult AddAdvert([FromBody] AddAdvertDto add)
+        {
+            if (add == null)
+                return BadRequest("Advert is null");
+
+            var id = _advertWorker.AddAdvert(add);
+
+            return Ok($"Successfully Created, with id: {id}");
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult DeactivateAdvert(int id)
+        {
+            _advertWorker.DeactivateAdvert(id);
+
+            return Ok($"Successfully Deactivated Advert, with id: {id}");
         }
     }
 }

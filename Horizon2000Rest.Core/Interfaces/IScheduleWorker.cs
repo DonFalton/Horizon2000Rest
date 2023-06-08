@@ -20,5 +20,7 @@ namespace Horizon2000Rest.Core.Interfaces
         /// <param name="id">The ID of the schedule.</param>
         /// <returns>The schedule.</returns>
         ScheduleDbo GetSchedule(int id);
+        void AddSchedule(ScheduleDbo schedule);
+        void UpdateSchedule(ScheduleDbo schedule);
     }
 }

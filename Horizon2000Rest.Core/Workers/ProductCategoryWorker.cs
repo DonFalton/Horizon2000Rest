@@ -41,5 +41,17 @@ namespace Horizon2000Rest.Core.Workers
         {
             return _productCategoryRepository.Get(id);
         }
+
+        public void AddProductCategory(ProductCategoryDbo productCategory)
+        {
+            _productCategoryRepository.Add(productCategory);
+            _dataContext.SaveChanges();
+        }
+
+        public void UpdateProductCategory(ProductCategoryDbo productCategory)
+        {
+            _productCategoryRepository.Update(productCategory);
+            _dataContext.SaveChanges();
+        }
     }
 }
