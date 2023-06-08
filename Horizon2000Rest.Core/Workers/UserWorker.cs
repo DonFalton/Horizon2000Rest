@@ -18,39 +18,26 @@ namespace Horizon2000Rest.Core.Workers
             _userRepository = userRepository;
         }
 
-        /// <summary>
-        /// Retrieves a user by ID.
-        /// </summary>
-        /// <param name="id">The ID of the user.</param>
-        /// <returns>The user entity.</returns>
+        /// <inheritdoc/>
         public UserDbo GetUser(int id)
         {
             return _userRepository.Get(id);
         }
 
-        /// <summary>
-        /// Retrieves all users.
-        /// </summary>
-        /// <returns>A list of user entities.</returns>
+        /// <inheritdoc/>
         public List<UserDbo> GetAllUsers()
         {
             return _userRepository.GetAll();
         }
 
-        /// <summary>
-        /// Adds a new user.
-        /// </summary>
-        /// <param name="userDbo">The user entity.</param>
+        /// <inheritdoc/>
         public void AddUser(UserDbo userDbo)
         {
             _userRepository.Add(userDbo);
             _userRepository.Save();
         }
 
-        /// <summary>
-        /// Updates an existing user.
-        /// </summary>
-        /// <param name="userDbo">The user entity.</param>
+        /// <inheritdoc/>
         public void UpdateUser(UserDbo userDbo)
         {
             _userRepository.Update(userDbo);
@@ -59,10 +46,9 @@ namespace Horizon2000Rest.Core.Workers
 
         #region JWT
 
+        /// <inheritdoc/>
         public UserLoginDto UserLogin(string username, string password)
         {
-     
-
             string token = JwtHelper.GenerateToken(username);
 
             return new UserLoginDto
@@ -72,10 +58,9 @@ namespace Horizon2000Rest.Core.Workers
             };
         }
 
+        /// <inheritdoc/>
         public UserLoginDto UserValidation(string username, string token)
         {
-            
-
             bool isValid = JwtHelper.ValidateToken(token) == username;
 
             if (isValid)
@@ -97,7 +82,5 @@ namespace Horizon2000Rest.Core.Workers
         }
 
         #endregion
-
-       
     }
 }

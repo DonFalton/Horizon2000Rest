@@ -40,6 +40,11 @@ namespace Horizon2000Rest.Controllers
                 : BadRequest("Advert not found");
         }
 
+        /// <summary>
+        /// Adds a new advert.
+        /// </summary>
+        /// <param name="add">The AddAdvertDto object containing the details of the advert to add.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPost]
         public IActionResult AddAdvert([FromBody] AddAdvertDto add)
         {
@@ -48,15 +53,20 @@ namespace Horizon2000Rest.Controllers
 
             var id = _advertWorker.AddAdvert(add);
 
-            return Ok($"Successfully Created, with id: {id}");
+            return Ok($"Successfully created advert with ID: {id}");
         }
 
+        /// <summary>
+        /// Deactivates an advert by ID.
+        /// </summary>
+        /// <param name="id">The ID of the advert to deactivate.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPut("{id}")]
         public IActionResult DeactivateAdvert(int id)
         {
             _advertWorker.DeactivateAdvert(id);
 
-            return Ok($"Successfully Deactivated Advert, with id: {id}");
+            return Ok($"Successfully deactivated advert with ID: {id}");
         }
     }
 }

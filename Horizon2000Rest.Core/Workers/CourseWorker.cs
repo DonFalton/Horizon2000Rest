@@ -16,7 +16,6 @@ namespace Horizon2000Rest.Core.Workers
         private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
 
-
         public CourseWorker(DataContext dataContext, ICourseRepository courseRepository, IMapper mapper)
         {
             _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
@@ -57,6 +56,7 @@ namespace Horizon2000Rest.Core.Workers
             }
         }
 
+        /// <inheritdoc/>
         public void UpdateCourse(UpdateCourseDto updateCourseDto)
         {
             var courseDbo = _courseRepository.Get(updateCourseDto.Id);

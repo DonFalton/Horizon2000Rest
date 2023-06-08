@@ -11,7 +11,7 @@ namespace Horizon2000Rest.Core.Interfaces
         /// Retrieves an advert by ID.
         /// </summary>
         /// <param name="id">The ID of the advert to retrieve.</param>
-        /// <returns>The AdvertDbo object if found, or null if not found.</returns>
+        /// <returns>The GetAdvertDto object if found, or null if not found.</returns>
         GetAdvertDto GetAdvert(int id);
 
         /// <summary>
@@ -21,6 +21,10 @@ namespace Horizon2000Rest.Core.Interfaces
         /// <returns>The ID of the added advert.</returns>
         int AddAdvert(AddAdvertDto advert);
 
+        /// <summary>
+        /// Deactivates an advert by ID.
+        /// </summary>
+        /// <param name="id">The ID of the advert to deactivate.</param>
         void DeactivateAdvert(int id);
     }
 }

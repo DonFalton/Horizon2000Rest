@@ -24,7 +24,7 @@ namespace Horizon2000Rest.Controllers
         /// <summary>
         /// Retrieves all students.
         /// </summary>
-        /// <returns>A list of student DTOs.</returns>
+        /// <returns>The IActionResult containing a list of student DTOs.</returns>
         [HttpGet]
         public IActionResult GetAllStudents()
         {
@@ -37,7 +37,7 @@ namespace Horizon2000Rest.Controllers
         /// Retrieves a student by ID.
         /// </summary>
         /// <param name="id">The ID of the student.</param>
-        /// <returns>The student DTO.</returns>
+        /// <returns>The IActionResult containing the student DTO if found, or NotFound if not found.</returns>
         [HttpGet("{id}")]
         public IActionResult GetStudent(int id)
         {
@@ -51,6 +51,11 @@ namespace Horizon2000Rest.Controllers
             return Ok(studentDto);
         }
 
+        /// <summary>
+        /// Adds a new student.
+        /// </summary>
+        /// <param name="studentDto">The StudentDto containing the student data to add.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPost]
         public IActionResult AddStudent([FromBody] StudentDto studentDto)
         {
@@ -61,9 +66,15 @@ namespace Horizon2000Rest.Controllers
             }
 
             var newStudentDto = _mapper.Map<GetStudentDto>(studentDbo);
-            return CreatedAtAction(nameof(GetStudent), new { id = newStudentDto.StudentId}, newStudentDto);
+            return CreatedAtAction(nameof(GetStudent), new { id = newStudentDto.StudentId }, newStudentDto);
         }
 
+        /// <summary>
+        /// Updates an existing student.
+        /// </summary>
+        /// <param name="id">The ID of the student to update.</param>
+        /// <param name="studentDto">The StudentDto containing the student data to update.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateStudent(string id, [FromBody] StudentDto studentDto)
         {

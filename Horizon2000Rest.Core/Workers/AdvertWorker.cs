@@ -63,6 +63,7 @@ namespace Horizon2000Rest.Core.Workers
             }
         }
 
+        /// <inheritdoc/>
         public void DeactivateAdvert(int id)
         {
             var advertDbo = _advertRepository.Get(id);
@@ -78,4 +79,3 @@ namespace Horizon2000Rest.Core.Workers
         }
     }
 }
-

@@ -19,31 +19,26 @@ namespace Horizon2000Rest.Core.Workers
             _scheduleRepository = scheduleRepository ?? throw new ArgumentNullException(nameof(scheduleRepository));
         }
 
-        /// <summary>
-        /// Retrieves all schedules.
-        /// </summary>
-        /// <returns>The list of schedules.</returns>
+        /// <inheritdoc/>
         public List<ScheduleDbo> GetAllSchedules()
         {
             return _scheduleRepository.GetAll();
         }
 
-        /// <summary>
-        /// Retrieves a schedule by ID.
-        /// </summary>
-        /// <param name="id">The ID of the schedule.</param>
-        /// <returns>The schedule.</returns>
+        /// <inheritdoc/>
         public ScheduleDbo GetSchedule(int id)
         {
             return _scheduleRepository.Get(id);
         }
 
+        /// <inheritdoc/>
         public void AddSchedule(ScheduleDbo schedule)
         {
             _scheduleRepository.Add(schedule);
             _dataContext.SaveChanges();
         }
 
+        /// <inheritdoc/>
         public void UpdateSchedule(ScheduleDbo schedule)
         {
             _scheduleRepository.Update(schedule);

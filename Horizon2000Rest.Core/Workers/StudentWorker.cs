@@ -7,7 +7,7 @@ using Horizon2000Rest.Entity.Models;
 namespace Horizon2000Rest.Core.Workers
 {
     /// <summary>
-    /// Implementation of the IStudentWorker interface for managing students operations.
+    /// Implementation of the IStudentWorker interface for managing student operations.
     /// </summary>
     public class StudentWorker : IStudentWorker
     {
@@ -20,25 +20,19 @@ namespace Horizon2000Rest.Core.Workers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        /// <summary>
-        /// Retrieves a student by ID.
-        /// </summary>
-        /// <param name="id">The ID of the student.</param>
-        /// <returns>The student entity.</returns>
+        /// <inheritdoc/>
         public StudentDbo GetStudent(int id)
         {
             return _studentRepository.Get(id);
         }
 
-        /// <summary>
-        /// Retrieves all students.
-        /// </summary>
-        /// <returns>A list of student entities.</returns>
+        /// <inheritdoc/>
         public List<StudentDbo> GetAllStudents()
         {
             return _studentRepository.GetAll();
         }
 
+        /// <inheritdoc/>
         public StudentDbo AddStudent(StudentDto studentDto)
         {
             // Map the DTO to a DBO.
@@ -51,6 +45,7 @@ namespace Horizon2000Rest.Core.Workers
             return studentDbo;
         }
 
+        /// <inheritdoc/>
         public StudentDbo UpdateStudent(StudentDto studentDto)
         {
             // Get the existing student from the repository.

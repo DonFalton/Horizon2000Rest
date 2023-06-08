@@ -23,31 +23,26 @@ namespace Horizon2000Rest.Core.Workers
             _productCategoryRepository = productCategoryRepository ?? throw new ArgumentNullException(nameof(productCategoryRepository));
         }
 
-        /// <summary>
-        /// Retrieves all product categories.
-        /// </summary>
-        /// <returns>A list of product categories.</returns>
+        /// <inheritdoc/>
         public List<ProductCategoryDbo> GetAllProductCategories()
         {
             return _productCategoryRepository.GetAll();
         }
 
-        /// <summary>
-        /// Retrieves a product category by ID.
-        /// </summary>
-        /// <param name="id">The ID of the product category.</param>
-        /// <returns>The product category.</returns>
+        /// <inheritdoc/>
         public ProductCategoryDbo GetProductCategory(int id)
         {
             return _productCategoryRepository.Get(id);
         }
 
+        /// <inheritdoc/>
         public void AddProductCategory(ProductCategoryDbo productCategory)
         {
             _productCategoryRepository.Add(productCategory);
             _dataContext.SaveChanges();
         }
 
+        /// <inheritdoc/>
         public void UpdateProductCategory(ProductCategoryDbo productCategory)
         {
             _productCategoryRepository.Update(productCategory);

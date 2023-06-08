@@ -29,6 +29,7 @@ namespace Horizon2000Rest.Core.Workers
             return _productRepository.Get(id);
         }
 
+        /// <inheritdoc/>
         public ProductDbo AddProduct(AddProductDto productDto)
         {
             var product = _mapper.Map<ProductDbo>(productDto);
@@ -37,6 +38,7 @@ namespace Horizon2000Rest.Core.Workers
             return product;
         }
 
+        /// <inheritdoc/>
         public ProductDbo UpdateProduct(UpdateProductDto productDto)
         {
             var product = _productRepository.Get(productDto.Id);

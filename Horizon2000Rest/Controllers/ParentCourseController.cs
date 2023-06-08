@@ -31,7 +31,7 @@ namespace Horizon2000Rest.Controllers
         /// Retrieves a parent course by ID.
         /// </summary>
         /// <param name="id">The ID of the parent course to retrieve.</param>
-        /// <returns>The ActionResult containing the parent course details if found, or NotFound if not found.</returns>
+        /// <returns>The IActionResult containing the parent course details if found, or NotFound if not found.</returns>
         [HttpGet("{id}")]
         public IActionResult GetParentCourse(int id)
         {
@@ -45,6 +45,11 @@ namespace Horizon2000Rest.Controllers
             return Ok(parentCourseDto);
         }
 
+        /// <summary>
+        /// Adds a new parent course.
+        /// </summary>
+        /// <param name="parentCourseDto">The AddParentCourseDto containing the parent course data to add.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPost]
         public IActionResult AddParentCourse([FromBody] AddParentCourseDto parentCourseDto)
         {
@@ -53,6 +58,12 @@ namespace Horizon2000Rest.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Updates an existing parent course.
+        /// </summary>
+        /// <param name="id">The ID of the parent course to update.</param>
+        /// <param name="parentCourseDto">The UpdateParentCourseDto containing the parent course data to update.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateParentCourse(int id, [FromBody] UpdateParentCourseDto parentCourseDto)
         {
@@ -62,7 +73,7 @@ namespace Horizon2000Rest.Controllers
                 return NotFound();
             }
 
-            _mapper.Map(parentCourseDto, parentCourseDbo);  // Assumes the Mapper is configured to do this
+            _mapper.Map(parentCourseDto, parentCourseDbo); // Assumes the Mapper is configured to do this
             _parentCourseWorker.UpdateParentCourse(parentCourseDbo);
             return NoContent();
         }

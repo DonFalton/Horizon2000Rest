@@ -22,8 +22,9 @@ namespace Horizon2000Rest.Controllers
         /// <summary>
         /// Initializes a new instance of the CourseController class.
         /// </summary>
+        /// <param name="dataContext">The DataContext instance for accessing the database.</param>
+        /// <param name="courseRepository">The ICourseRepository instance for course operations.</param>
         /// <param name="mapper">The IMapper instance for object mapping.</param>
-        /// <param name="courseWorker">The ICourseWorker instance for course operations.</param>
         public CourseController(DataContext dataContext, ICourseRepository courseRepository, IMapper mapper)
         {
             _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
@@ -35,7 +36,7 @@ namespace Horizon2000Rest.Controllers
         /// Retrieves a course by ID.
         /// </summary>
         /// <param name="id">The ID of the course to retrieve.</param>
-        /// <returns>The ActionResult containing the course details if found, or NotFound if not found.</returns>
+        /// <returns>The GetCourseDto containing the course details if found, or NotFound if not found.</returns>
         [HttpGet("{id}")]
         public GetCourseDto GetCourse(int id)
         {
@@ -47,7 +48,7 @@ namespace Horizon2000Rest.Controllers
         /// Adds a new course.
         /// </summary>
         /// <param name="courseDto">The CreateCourseDto containing the course data to add.</param>
-        /// <returns>The ActionResult containing the created course details if successful, or an error response if unsuccessful.</returns>
+        /// <returns>The ID of the created course if successful, or throws an exception if unsuccessful.</returns>
         [HttpPost]
         public int AddCourse(CreateCourseDto courseDto)
         {
@@ -74,6 +75,12 @@ namespace Horizon2000Rest.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates an existing course.
+        /// </summary>
+        /// <param name="id">The ID of the course to update.</param>
+        /// <param name="updateCourseDto">The UpdateCourseDto containing the course data to update.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateCourse(int id, UpdateCourseDto updateCourseDto)
         {
@@ -84,15 +91,13 @@ namespace Horizon2000Rest.Controllers
             if (existingCourseDbo == null)
                 return NotFound();
 
-            
+            // Update the image path of the existing course
             existingCourseDbo.ImagePath = updateCourseDto.Image;
 
-            
             _courseRepository.Update(existingCourseDbo);
             _dataContext.SaveChanges();
 
             return NoContent();
         }
-
     }
 }

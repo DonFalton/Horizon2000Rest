@@ -7,7 +7,7 @@ using Horizon2000Rest.Entity.Models;
 namespace Horizon2000Rest.Controllers
 {
     /// <summary>
-    /// Controller for managing user.
+    /// Controller for managing users.
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
@@ -25,7 +25,7 @@ namespace Horizon2000Rest.Controllers
         /// <summary>
         /// Retrieves all users.
         /// </summary>
-        /// <returns>A list of user DTOs.</returns>
+        /// <returns>The IActionResult containing a list of user DTOs.</returns>
         [HttpGet]
         public IActionResult GetAllUsers()
         {
@@ -38,7 +38,7 @@ namespace Horizon2000Rest.Controllers
         /// Retrieves a user by ID.
         /// </summary>
         /// <param name="id">The ID of the user.</param>
-        /// <returns>The user DTO.</returns>
+        /// <returns>The IActionResult containing the user DTO if found, or NotFound if not found.</returns>
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
@@ -55,8 +55,8 @@ namespace Horizon2000Rest.Controllers
         /// <summary>
         /// Creates a new user.
         /// </summary>
-        /// <param name="userDto">The user DTO.</param>
-        /// <returns>The created user DTO.</returns>
+        /// <param name="userDto">The UserDto containing the user data to create.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPost]
         public IActionResult CreateUser(UserDto userDto)
         {
@@ -72,9 +72,9 @@ namespace Horizon2000Rest.Controllers
         /// <summary>
         /// Updates an existing user.
         /// </summary>
-        /// <param name="id">The ID of the user.</param>
-        /// <param name="userDto">The user DTO.</param>
-        /// <returns>The updated user DTO.</returns>
+        /// <param name="id">The ID of the user to update.</param>
+        /// <param name="userDto">The UserDto containing the user data to update.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, UserDto userDto)
         {

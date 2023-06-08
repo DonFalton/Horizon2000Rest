@@ -25,7 +25,7 @@ namespace Horizon2000Rest.Controllers
         /// <summary>
         /// Retrieves all schedules.
         /// </summary>
-        /// <returns>A list of schedule DTOs.</returns>
+        /// <returns>The IActionResult containing a list of schedule DTOs.</returns>
         [HttpGet]
         public IActionResult GetAllSchedules()
         {
@@ -38,7 +38,7 @@ namespace Horizon2000Rest.Controllers
         /// Retrieves a schedule by ID.
         /// </summary>
         /// <param name="id">The ID of the schedule.</param>
-        /// <returns>The schedule DTO.</returns>
+        /// <returns>The IActionResult containing the schedule DTO if found, or NotFound if not found.</returns>
         [HttpGet("{id}")]
         public IActionResult GetSchedule(int id)
         {
@@ -51,6 +51,12 @@ namespace Horizon2000Rest.Controllers
             var scheduleDto = _mapper.Map<GetScheduleDto>(scheduleDbo);
             return Ok(scheduleDto);
         }
+
+        /// <summary>
+        /// Adds a new schedule.
+        /// </summary>
+        /// <param name="scheduleDto">The AddScheduleDto containing the schedule data to add.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPost]
         public IActionResult AddSchedule([FromBody] AddScheduleDto scheduleDto)
         {
@@ -59,6 +65,12 @@ namespace Horizon2000Rest.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Updates an existing schedule.
+        /// </summary>
+        /// <param name="id">The ID of the schedule to update.</param>
+        /// <param name="scheduleDto">The UpdateScheduleDto containing the schedule data to update.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateSchedule(int id, [FromBody] UpdateScheduleDto scheduleDto)
         {

@@ -24,7 +24,7 @@ namespace Horizon2000Rest.Controllers
         /// <summary>
         /// Retrieves all product categories.
         /// </summary>
-        /// <returns>The list of product categories.</returns>
+        /// <returns>The IActionResult containing the list of product categories.</returns>
         [HttpGet]
         public IActionResult GetAllProductCategories()
         {
@@ -37,7 +37,7 @@ namespace Horizon2000Rest.Controllers
         /// Retrieves a product category by ID.
         /// </summary>
         /// <param name="id">The ID of the product category.</param>
-        /// <returns>The product category.</returns>
+        /// <returns>The IActionResult containing the product category if found, or NotFound if not found.</returns>
         [HttpGet("{id}")]
         public IActionResult GetProductCategory(int id)
         {
@@ -51,6 +51,11 @@ namespace Horizon2000Rest.Controllers
             return Ok(productCategoryDto);
         }
 
+        /// <summary>
+        /// Adds a new product category.
+        /// </summary>
+        /// <param name="productCategoryDto">The UpdateProductCategoryDto containing the product category data to add.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPost]
         public IActionResult AddProductCategory([FromBody] UpdateProductCategoryDto productCategoryDto)
         {
@@ -59,6 +64,12 @@ namespace Horizon2000Rest.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Updates an existing product category.
+        /// </summary>
+        /// <param name="id">The ID of the product category to update.</param>
+        /// <param name="productCategoryDto">The UpdateProductCategoryDto containing the product category data to update.</param>
+        /// <returns>The IActionResult indicating the result of the operation.</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateProductCategory(int id, [FromBody] UpdateProductCategoryDto productCategoryDto)
         {
@@ -75,5 +86,4 @@ namespace Horizon2000Rest.Controllers
             return Ok();
         }
     }
-
 }
